@@ -1,0 +1,16 @@
+
+.slick-next {
+    display: none !important;
+}
+
+.Slider{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    width: 100%;
+}
+
+.Menu{
+    position: relative;
+    width: 100%;
+}

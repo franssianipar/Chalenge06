@@ -7,13 +7,13 @@ import './Carousel.css'
 import {  useState } from "react"
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import { API_KEY } from "../util/constant"
 
 
 export default function Carousel(props) {
     const [inputan,setInputan]= useState('')
-    const [detail, setDetail] = useState({})
+    const [details, setDetail] = useState({})
     const params = useParams();
 
 
@@ -49,8 +49,18 @@ export default function Carousel(props) {
                                 <FaSearch />
                             </button>
                         </div>
-                        <button className="ml-44 w-1/12 border-2 rounded-full border-rose-600 text-white"onClick={()=>props.setShowMyModal(true)}> Login</button>
-                        <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=>props.setShowModal(true)}> Register</button>
+                        {
+                            localStorage.getItem("token") === null && 
+                                <button className="ml-44 w-1/12 border-2 rounded-full border-rose-600 text-white"onClick={()=>props.setShowMyModal(true)}> Login</button>                                
+                        }
+                        {
+                            localStorage.getItem("token") === null ?
+                                <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=>props.setShowModal(true)}> Register</button>
+                                : <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=> {
+                                    localStorage.removeItem("token")
+                                    window.location.reload()
+                                }}> Logout</button>
+                        }
                 </div>
                 <div className="Slider">
                 <Slider dots={true} autoplay={true}>

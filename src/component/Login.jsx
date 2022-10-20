@@ -1,14 +1,34 @@
 import { ImCross } from "react-icons/im"
 import { AiOutlineMail } from "react-icons/ai"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
-import { useState } from "react"
+import { useState, } from "react"
+
+import axios from "axios"
+import Googlelogin from "./Googlelogin"
 
 export default function Login({visible,onClose}){
 
+    
+    const[email,setEmail]=useState("")
+    const[password,setPassword]=useState("")
     const [type,setType] =useState("password" )
     const [icon,setIcon] =useState(FaEyeSlash)
 
     if(!visible) return null;
+
+    const authy=()=>{
+        axios.post(`https://challenge6-backend.herokuapp.com/api/v1/auth/login`, {
+            email:email, password:password
+        })
+    .then((resp)=>{
+        localStorage.setItem("token", resp.data.token)
+        window.location.reload()
+    })
+    .catch((err)=>{
+        console.log("Ini error:" + err)
+    })
+  
+    }
 
     
     const handleToogle=()=>{
@@ -33,17 +53,27 @@ export default function Login({visible,onClose}){
                     </div>
                     <hr className="w-11/12 ml-10 mt-5 " />
                     <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
-                        <input className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type="email" placeholder="Email Address"/>
+                        <input pattern="/^[a-zA-Z0-9]+\@[a-zA-Z0-9]+\.(com|co.id|id)$/g" className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type="email" placeholder="Email Address" onChange={function(e){
+                        setEmail(e.target.value)}}/>
                         <AiOutlineMail className="ml-auto text-black mt-3" />
                     </div>
                     <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
-                        <input className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type={type}placeholder="Password" id="myInput"/>
+                        <input pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/"className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type={type}placeholder="Password" id="myInput" onChange={function(e) {
+                            setPassword(e.target.value)
+                        }}/>
                         <span  className="mt-3" onClick={handleToogle}>
                             {icon} 
                         </span>
                     </div>
 
-                    <button className="ml-10 bg-red-600 rounded-full w-2/12 h-10 mb-8 mt-5">Login</button>
+                    
+                    <div className="mb-auto flex mt-10 ">
+                        <button className="ml-10 bg-red-600 rounded-full w-2/12 h-10 mb-8 mt-5" onClick={()=>{
+                            authy()
+                        }}>Login</button>
+                        <Googlelogin/>
+                    </div>                 
+                    
                 </div>
                
             </div>

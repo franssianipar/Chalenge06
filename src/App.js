@@ -9,14 +9,12 @@ import Main from './view/Main';
 
 
 function App() {
- 
+
   return (
     <>
     <Routes>
       <Route path="/" element={<Main/>}/>
       <Route path="/:id" element={<Detail/>}/>
-      
-      
     </Routes>
     </>
   );

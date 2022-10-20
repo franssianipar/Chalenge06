@@ -57,7 +57,9 @@ export default function Main(){
             
             
             <Carousel search={search} setSearch={setSearch} setShowMyModal={setShowMyModal} setShowModal={setShowModal}/>
-            <Login visible={showMyModal} onClose={handleOnClose}/>
+            
+            <Login  visible={showMyModal} onClose={handleOnClose}/>
+            
             <Register Visible={showModal} closeModal={handleClose}/>
             {search !== "" ? <Search search={search} data={data}/> : <Home1 setData={setData} search={search} data={data}/>}
             

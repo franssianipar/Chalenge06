@@ -5,8 +5,9 @@ import axios from "axios"
 import { API_KEY } from "../util/constant"
 import { useNavigate } from "react-router-dom"
 import Login from "../component/Login";
-import Googlelogin from "./Googlelogin";
 import Register from "../component/Register";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Googlelogin from "./Googlelogin";
 
 export default function Detail(props){
     const params = useParams();
@@ -16,7 +17,6 @@ export default function Detail(props){
     const [showModal,setShowModal] =useState(false)
     const handleOnClose =()=>setShowMyModal(false)
     const handleClose =()=>setShowModal(false)
-   
 
     useEffect(() => {
         axios.get('https://api.themoviedb.org/3/movie/' + params.id, {
@@ -32,8 +32,6 @@ export default function Detail(props){
                 console.log("Ini error:" + err)
             })
     }, [])
-
-
     return(
         <>  
             <div className="bg-center h-full" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${detail.poster_path})`, backgroundSize: "100% auto" }}>
@@ -43,22 +41,18 @@ export default function Detail(props){
                             navigate("/")
                         }}> Movielist</h1>
                         <div className="border-2 flex-auto border-rose-600 rounded-full w-2/5 ml-60 flex px-5">
-                            <input className=" bg-transparent focus:outline-0 w-full border-0 outline-0 h-full border-0 placeholder:text-white" type="text" placeholder="what do you want to watch?"/>
-                            <button className="ml-auto  text-white" onClick={()=>(
-
-                                 navigate("/search")    
-                            )}>
+                            <input className=" bg-transparent focus:outline-0 w-full border-0 outline-0 h-full border-0 placeholder:text-white" type="text" placeholder="what do you want to watch?" />
+                            <button className="ml-auto  text-white">
                                 <FaSearch />
                             </button>
-                            
                         </div>
                         {
                             localStorage.getItem("token") === null && 
-                                <button className="ml-44 w-1/12 border-2 rounded-full border-rose-600 text-white"onClick={()=>props.setShowMyModal(true)}> Login</button>                                
+                                <button className="ml-44 w-1/12 border-2 rounded-full border-rose-600 text-white"onClick={()=>setShowMyModal(true)}> Login</button>                                
                         }
                         {
                             localStorage.getItem("token") === null ?
-                                <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=>props.setShowModal(true)}> Register</button>
+                                <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=>setShowModal(true)}> Register</button>
                                 :!"token"?(<Googlelogin />)
                                 :(
                                     <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=> {
@@ -71,7 +65,10 @@ export default function Detail(props){
                                 
                         }
                     </div>
-                    <Login visible={showMyModal} onClose={handleOnClose}/>
+                    <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
+                        <Login visible={showMyModal} onClose={handleOnClose}/>
+                    </GoogleOAuthProvider>
+            
                     <Register Visible={showModal} closeModal={handleClose}/>
 
                     <div className="flex flex-col h-68 w-5/12 mt-64 ">

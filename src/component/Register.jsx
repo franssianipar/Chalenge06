@@ -17,7 +17,32 @@ export default function Register({Visible,closeModal}){
     if(!Visible) return null;
 
 
-    const authy=()=>{
+    const authy=(e)=>{
+        const email =e.target.value;
+
+        if (firstName === "") {
+            alert(" first Name is required");
+            return;
+        }
+        if (lastName === "") {
+            alert(" last Name is required");
+            return;
+        }
+        
+        
+        if (email === "") {
+            alert("Email is required");
+            return;
+        }
+        if (password === "") {
+            alert("Password is required");
+            return;
+        }
+        if (confirmationPassword === "") {
+            alert("Password Confirmation is required");
+            return;
+        }
+        
         if (confirmationPassword === password) {
             axios.post(`https://challenge6-backend.herokuapp.com/api/v1/auth/register`, {
                 email:email, password:password ,name:firstName + lastName
@@ -55,22 +80,22 @@ export default function Register({Visible,closeModal}){
                 <hr className="w-11/12 ml-10 mt-5 " />
                 <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
                     <input  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent " type="text" placeholder="First Name" onChange={function(e){
-                        setLastName(e.target.value)}}/>
-                    <CgProfile size={17} className="ml-auto text-black mt-2" />
-                </div>
-                <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
-                    <input  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent " type="text" placeholder="First Name" onChange={function(e){
                         setFirstName(e.target.value)}}/>
                     <CgProfile size={17} className="ml-auto text-black mt-2" />
                 </div>
                 <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
-                    <input pattern="/^[a-zA-Z0-9]+\@[a-zA-Z0-9]+\.(com|co.id|id)$/g"  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type="email" placeholder="Email Address" onChange={function(e){
-                        setEmail(e.target.value)}}/>
+                    <input  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent " type="text" placeholder="Last Name" onChange={function(e){
+                        setLastName(e.target.value)}}/>
+                    <CgProfile size={17} className="ml-auto text-black mt-2" />
+                </div>
+                <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
+                    <input pattern="/^[a-zA-Z0-9]+\@[a-zA-Z0-9]+\.(com|co.id|id)$/g"  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type="email" value={email} placeholder="Email Address" onChange={function(e){
+                        setEmail(e.target.value)}} required/>
                     <AiOutlineMail className="ml-auto text-black mt-3" />
                 </div>
                 <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
-                    <input pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/"className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent"  type={(passwordEye===false)? 'password':'text'} placeholder="Password" id="myInput" onChange={function(e){
-                        setPassword(e.target.value)}}/>
+                    <input pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/" title="must use uppercase, lowercase and numbers"className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent"  type={(passwordEye===false)? 'password':'text'} placeholder="Password"  id="myInput" onChange={function(e){
+                        setPassword(e.target.value)}} required/>
                     <span  className="mt-3">
                     {
                             (passwordEye=== false)?<FaEyeSlash onClick={handleToogle}/>:<FaEye onClick={handleToogle}/>
@@ -81,7 +106,7 @@ export default function Register({Visible,closeModal}){
                 <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
                     <input pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/" required title="Minimum of 7 characters. Should have at least one special character and one number." className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type={(confirmPasswordEye===false)? 'password':'text'} placeholder="Password Confirmation" id="myInput" onChange={(e) => {
                         setConfirmationPassword(e.target.value)
-                    }}/>
+                    }} />
                     <span className="mt-3">
                         {
                             (confirmPasswordEye=== false)?<FaEyeSlash onClick={handleConfirmToogle}/>:<FaEye onClick={handleConfirmToogle}/>

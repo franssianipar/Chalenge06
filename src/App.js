@@ -2,7 +2,9 @@
 import './App.css';
 import { Routes,Route } from 'react-router';
 import Main from './view/Main';
-import List from './view/List';
+import Detail from './component/Detail';
+import Search from './component/Search';
+
 
 
 function App() {
@@ -12,8 +14,8 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<Main/>}/>
-      <Route path="/:id" element={<List/>}/>
-      
+      <Route path="/:id" element={<Detail/>}/>  
+      <Route path="/search" element={<Search/>}/>  
     </Routes>
     </>
   );

@@ -18,10 +18,6 @@ export default function Main(){
     const[data,setData]=useState([])
     const [search, setSearch] = useState("")
     
-
-    
-    
-    
     useEffect(()=>{
         if (search === "") {
             axios.get('https://api.themoviedb.org/3/movie/popular', {

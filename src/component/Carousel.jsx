@@ -9,12 +9,18 @@ import axios from "axios";
 import { useEffect } from "react";
 import {  useParams } from "react-router-dom"
 import { API_KEY } from "../util/constant"
+import Googlelogin from "./Googlelogin";
+
+
 
 
 export default function Carousel(props) {
+
+
     const [inputan,setInputan]= useState('')
     const [details, setDetail] = useState({})
     const params = useParams();
+
 
 
     useEffect(() => {
@@ -41,7 +47,7 @@ export default function Carousel(props) {
                         <h1 className="text-red-600 text-5xl font-bold"> Movielist</h1>
                         <div className="border-2 flex-auto border-rose-600 rounded-full w-2/5 ml-60 flex px-5">
                             <input className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent" type="text" placeholder="what do you want to watch?" onChange={function(e){
-                        setInputan(e.target.value)
+                            setInputan(e.target.value)
                     }}/>
                             <button className="ml-auto text-white" onClick={() => {
                                 props.setSearch(inputan)
@@ -56,11 +62,20 @@ export default function Carousel(props) {
                         {
                             localStorage.getItem("token") === null ?
                                 <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=>props.setShowModal(true)}> Register</button>
-                                : <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=> {
+                                :!"token"?(<Googlelogin />)
+                                :(
+                                    <button className="ml-5 mr-5 bg-red-600 rounded-full w-1/12 " onClick={()=> {
                                     localStorage.removeItem("token")
                                     window.location.reload()
                                 }}> Logout</button>
+
+                                )
+                                
+                                
                         }
+
+                        
+                        
                 </div>
                 <div className="Slider">
                 <Slider dots={true} autoplay={true}>

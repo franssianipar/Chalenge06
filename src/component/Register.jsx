@@ -12,6 +12,7 @@ export default function Register({Visible,closeModal}){
     const[password,setPassword]=useState("")
     const[confirmationPassword,setConfirmationPassword]=useState("")
     const[firstName,setFirstName]=useState("")
+    const[lastName,setLastName]=useState("")
 
     if(!Visible) return null;
 
@@ -19,7 +20,7 @@ export default function Register({Visible,closeModal}){
     const authy=()=>{
         if (confirmationPassword === password) {
             axios.post(`https://challenge6-backend.herokuapp.com/api/v1/auth/register`, {
-                email:email, password:password ,name:firstName
+                email:email, password:password ,name:firstName + lastName
             })
             .then((resp)=>{
                 localStorage.setItem("token", resp.data.token)
@@ -52,6 +53,11 @@ export default function Register({Visible,closeModal}){
                     <button className="ml-auto mr-14" onClick={()=>closeModal(false)}><ImCross/></button>
                 </div>
                 <hr className="w-11/12 ml-10 mt-5 " />
+                <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
+                    <input  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent " type="text" placeholder="First Name" onChange={function(e){
+                        setLastName(e.target.value)}}/>
+                    <CgProfile size={17} className="ml-auto text-black mt-2" />
+                </div>
                 <div className="border-2 flex-auto rounded-full w-11/12  h-10 flex px-5 ml-10 mb-5 mt-5">
                     <input  className="focus:outline-0 w-full border-0 outline-0 h-full border-0 bg-transparent " type="text" placeholder="First Name" onChange={function(e){
                         setFirstName(e.target.value)}}/>

@@ -1,13 +1,12 @@
 import { useState } from "react";
-import Carousel from "../component/Carousel";
-import Home1 from "../component/Home1";
 import axios from "axios"
 import { useEffect } from "react"
 import { API_KEY } from "../util/constant"
-import Search from "../component/Search";
 import Login from "../component/Login";
 import Register from "../component/Register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Detail from "../component/Detail";
+
 
 
 export default function Main(){
@@ -17,11 +16,7 @@ export default function Main(){
     const handleClose =()=>setShowModal(false)
     const[data,setData]=useState([])
     const [search, setSearch] = useState("")
-    
 
-    
-    
-    
     useEffect(()=>{
         if (search === "") {
             axios.get('https://api.themoviedb.org/3/movie/popular', {
@@ -58,9 +53,7 @@ export default function Main(){
     return(
         <>
         <div className="">
-            
-            
-            <Carousel search={search} setSearch={setSearch} setShowMyModal={setShowMyModal} setShowModal={setShowModal}/>
+            <Detail data={data} search={search} setSearch={setSearch} setShowMyModal={setShowMyModal} setShowModal={setShowModal}/>
             
             <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
                 <Login  visible={showMyModal} onClose={handleOnClose}/>
@@ -68,8 +61,6 @@ export default function Main(){
             </GoogleOAuthProvider>
             
             <Register Visible={showModal} closeModal={handleClose}/>
-            {search !== "" ? <Search search={search} data={data}/> : <Home1 setData={setData} search={search} data={data}/>}
-            
         </div>
         </>
     )

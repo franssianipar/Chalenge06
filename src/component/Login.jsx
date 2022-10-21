@@ -6,7 +6,9 @@ import { useState, } from "react"
 import axios from "axios"
 import Googlelogin from "./Googlelogin"
 
-export default function Login({visible,onClose}){
+export default function Login({ visible,onClose}){
+
+    
 
     
     const[email,setEmail]=useState("")
@@ -42,7 +44,7 @@ export default function Login({visible,onClose}){
             setType('password')
         }
     }
-
+   
     return(
         <>
             <div className=" fixed inset-0 bg-opacity-30 backdrop-blur-sm flex justify-center items-center" >
@@ -65,7 +67,7 @@ export default function Login({visible,onClose}){
                             {icon} 
                         </span>
                     </div>
-
+                    
                     
                     <div className="mb-auto flex mt-10 ">
                         <button className="ml-10 bg-red-600 rounded-full w-2/12 h-10 mb-8 mt-5" onClick={()=>{

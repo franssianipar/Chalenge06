@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 import {CgProfile } from "react-icons/cg"
 import { useState } from "react"
 import axios from "axios"
+import Googlelogin from "./Googlelogin"
 
 export default function Register({Visible,closeModal}){
     const[passwordEye,setPasswordEye]=useState(false)
@@ -118,6 +119,7 @@ export default function Register({Visible,closeModal}){
                             authy()
                         }}>Register Now</button>
                 </div>
+                <Googlelogin/>
                 
             </div>     
         </div>

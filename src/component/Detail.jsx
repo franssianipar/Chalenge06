@@ -65,11 +65,12 @@ export default function Detail(props){
                                 
                         }
                     </div>
-                    <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
+                    
                         <Login visible={showMyModal} onClose={handleOnClose}/>
+                    
+                    <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
+                        <Register Visible={showModal} closeModal={handleClose}/>
                     </GoogleOAuthProvider>
-            
-                    <Register Visible={showModal} closeModal={handleClose}/>
 
                     <div className="flex flex-col h-68 w-5/12 mt-64 ">
                         <div className="mt-auto">

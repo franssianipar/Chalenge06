@@ -15,7 +15,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Main/>}/>
       <Route path="/:id" element={<Detail/>}/>  
-      <Route path="/search" element={<Search/>}/>  
     </Routes>
     </>
   );

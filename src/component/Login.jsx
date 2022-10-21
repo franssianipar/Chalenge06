@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { useState, } from "react"
 
 import axios from "axios"
-import Googlelogin from "./Googlelogin"
+
 
 export default function Login({ visible,onClose}){
 
@@ -73,7 +73,7 @@ export default function Login({ visible,onClose}){
                         <button className="ml-10 bg-red-600 rounded-full w-2/12 h-10 mb-8 mt-5" onClick={()=>{
                             authy()
                         }}>Login</button>
-                        <Googlelogin/>
+                        
                     </div>                 
                     
                 </div>

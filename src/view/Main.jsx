@@ -58,12 +58,13 @@ export default function Main(){
             
             <Carousel search={search} setSearch={setSearch} setShowMyModal={setShowMyModal} setShowModal={setShowModal}/>
             
-            <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
+           
                 <Login  visible={showMyModal} onClose={handleOnClose}/>
                 
-            </GoogleOAuthProvider>
             
-            <Register Visible={showModal} closeModal={handleClose}/>
+            <GoogleOAuthProvider clientId="134468154099-apc6un8gp22f8dadi8tf1kf4o2fv2lnk.apps.googleusercontent.com">
+                <Register Visible={showModal} closeModal={handleClose}/>
+            </GoogleOAuthProvider>
             {search !== "" ? <Search search={search} data={data}/> : <Home1 setData={setData} search={search} data={data}/>}
             
         </div>

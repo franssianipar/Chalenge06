@@ -6,6 +6,7 @@ import { useState } from "react"
 import axios from "axios"
 import Googlelogin from "./Googlelogin"
 
+
 export default function Register({Visible,closeModal}){
     const[passwordEye,setPasswordEye]=useState(false)
     const[confirmPasswordEye,setConfirmPasswordEye]=useState(false)

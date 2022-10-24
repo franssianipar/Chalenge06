@@ -13,6 +13,7 @@ export default function Detail(props){
     const params = useParams();
     const navigate=useNavigate()
     const [detail, setDetail] = useState({})
+    const [inputan, setInputan] = useState("")
     const [showMyModal,setShowMyModal] =useState(false)
     const [showModal,setShowModal] =useState(false)
     const handleOnClose =()=>setShowMyModal(false)
@@ -32,6 +33,7 @@ export default function Detail(props){
                 console.log("Ini error:" + err)
             })
     }, [])
+
     return(
         <>  
             <div className="bg-center h-full" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${detail.poster_path})`, backgroundSize: "100% auto" }}>
@@ -41,8 +43,12 @@ export default function Detail(props){
                             navigate("/")
                         }}> Movielist</h1>
                         <div className="border-2 flex-auto border-rose-600 rounded-full w-2/5 ml-60 flex px-5">
-                            <input className=" bg-transparent focus:outline-0 w-full border-0 outline-0 h-full border-0 placeholder:text-white" type="text" placeholder="what do you want to watch?" />
-                            <button className="ml-auto  text-white">
+                            <input className=" bg-transparent focus:outline-0 w-full border-0 outline-0 h-full border-0 placeholder:text-white" type="text" placeholder="what do you want to watch?" onChange={(e) => {
+                                setInputan(e.target.value)
+                            }}/>
+                            <button className="ml-auto  text-white" onClick={() => {
+                                navigate("/search?query=" + inputan)
+                            }}>
                                 <FaSearch />
                             </button>
                         </div>

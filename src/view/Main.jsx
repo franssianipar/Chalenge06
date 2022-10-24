@@ -8,6 +8,7 @@ import Search from "../component/Search";
 import Login from "../component/Login";
 import Register from "../component/Register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useSearchParams } from "react-router-dom";
 
 
 export default function Main(){
@@ -17,39 +18,27 @@ export default function Main(){
     const handleClose =()=>setShowModal(false)
     const[data,setData]=useState([])
     const [search, setSearch] = useState("")
+    const [searchParams, setSearchParams] = useSearchParams();
+
+
+    useEffect(() => {
+        setSearchParams({["query"]: search})   
+    }, [search])
     
     useEffect(()=>{
-        if (search === "") {
-            axios.get('https://api.themoviedb.org/3/movie/popular', {
-                headers: {
-                    "Authorization": "Bearer " + API_KEY
-                }
-            })
-            .then((resp)=>{
-                setData(resp.data)
-                console.log("Ini response:" + resp)
-            })
-            .catch((err)=>{
-                console.log("Ini error:" + err)
-            })
-        } else {
-            axios.get('https://api.themoviedb.org/3/search/movie', {
-                headers: {
-                    "Authorization": "Bearer " + API_KEY
-                },
-                params: {
-                    query: search
-                }
-            })
-                .then((resp)=>{
-                    setData(resp.data)
-                    console.log("Ini response:" + resp)
-                })
-                .catch((err)=>{
-                    console.log("Ini error:" + err)
-                })
-        }
-    }, [search])
+        axios.get('https://api.themoviedb.org/3/movie/popular', {
+            headers: {
+                "Authorization": "Bearer " + API_KEY
+            }
+        })
+        .then((resp)=>{
+            setData(resp.data)
+            console.log("Ini response:" + resp)
+        })
+        .catch((err)=>{
+            console.log("Ini error:" + err)
+        })
+    }, [])
 
     return(
         <>

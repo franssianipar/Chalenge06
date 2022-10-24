@@ -5,8 +5,6 @@ import './Home1.css'
 export default function Home1(props) {
     const navigate=useNavigate()
 
-
-
     return (
         <>
 
